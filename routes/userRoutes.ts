@@ -1,12 +1,11 @@
 import { Router } from 'express';
+import { verifyToken } from '../middleware/authMiddleware';
 import * as userController from '../controller/userController';
 
 const router = Router();
 
-router.post('/', userController.createUser);
-router.get('/', userController.getAllUsers);
-router.get('/:id', userController.getUserById);
-router.put('/:id', userController.updateUser);
-router.delete('/:id', userController.deleteUser);
+router.post('/', verifyToken, userController.createUser);
+router.get('/', verifyToken, userController.getAllUsers);
+router.put('/:id', verifyToken, userController.updateUser);
 
 export default router;
